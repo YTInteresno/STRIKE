@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STRIKE</title>
+  <style>
+    h1 {
+      color: aqua;
+    }
+
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 50px;
+      background-image: url(/img/79dc20e5-0b25-46ac-9414-8ae4c4bcf871.png);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: rgb(255, 255, 255);
+    }
+
+    button {
+      background-image: url(/img/photo_2025-05-03_20-17-19.jpg);
+      background-position: center;
+      font-size: 24px;
+      padding: 150px 100px;
+      border-radius: 200px;
+      border: none;
+      cursor: pointer;
+      color: white;
+    }
+
+    #count, #income, #energy-display, #clickPowerDisplay {
+      font-size: 28px;
+      margin-top: 20px;
+    }
+
+    .shop {
+      margin-top: 30px;
+    }
+
+    .upgrade-btn, .energy-btn, .promo-btn, .rules-btn, .withdraw-btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    #promoModal, #rulesModal {
+      display: none;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      width: 80%;
+      max-width: 600px;
+      overflow-y: auto;
+    }
+
+    #promoModal input, #rulesModal p {
+      font-size: 16px;
+      padding: 5px;
+      margin-right: 10px;
+    }
+
+    #promoModal button, #rulesModal button {
+      font-size: 16px;
+      padding: 5px 10px;
+    }
+
+    #rulesModal {
+      max-height: 400px;
+    }
+
+    #rulesModal p {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>STRIKE</h1>
+  <p id="income">Доход/сек: 0</p>
+  <p id="clickPowerDisplay">Сила клика: 1</p>
+  <p id="energy-display">Энергия: 0/100</p>
+
+  <button id="count" onclick="increaseCount()">Золото: 0</button>
+
+  <div class="shop">
+    <button class="upgrade-btn" onclick="upgradeClick()">Улучшить клик (+1) — 50 золота</button>
+    <button class="upgrade-btn" onclick="upgradeAuto()">Увеличить доход/сек (+1) — 25 золота</button>
+    <button class="energy-btn" onclick="buyEnergy()">Купить Энергию — 5 золота</button>
+   <button class="promo-btn" onclick="openPromoModal()">Ввести промокод</button> 
+   <button class="upgrade-btn" onclick="resetAutoIncome()">Удалить доход/сек</button>
+    <button class="upgrade-btn" onclick="resetClickPower()">Удалить мощность клика</button>
+    <button class="upgrade-btn" onclick="resetBalance()">Удалить баланс</button>
+    <button class="upgrade-btn" onclick="convertGoldToSum()">Обменять золото на сум</button>
+    <button class="rules-btn" onclick="openRulesModal()">Правила игры</button>
+  </div>
+
+  <div id="promoModal">
+    <p>Введите промокод:</p>
+    <input type="text" id="promoInput" placeholder="Промокод" />
+    <button onclick="checkPromo()">Применить</button>
+    <button onclick="closePromoModal()">Закрыть</button>
+  </div>
+
+  <div id="rulesModal">
+    <h2>Правила игры</h2>
+    <p>1. Для начала игры у вас есть базовые ресурсы: золото, энергия и сила клика.</p>
+    <p>2. Каждый клик приносит вам золото в зависимости от силы клика.</p>
+    <p>3. Энергия восстанавливается постепенно, и каждый клик требует одну единицу энергии.</p>
+    <p>4. Вы можете улучшать силу клика и доход в секунду, используя золото.</p>
+    <p>5. Применяйте промокоды для бонусов (золото, энергия и т.д.).</p>
+    <p>6. Запомните вывод средсть можно только через телеграм и с видео </p>
+    <p>7. Ссылки:</p>
+    <ul>
+      <li><a href="https://t.me/STRIKE_2604" target="_blank">Telegram канал</a></li>
+      <li><a href="https://example.com" target="_blank">Сайт</a></li>
+    </ul>
+    <button onclick="closeRulesModal()">Закрыть</button>
+  </div>
+
+  <script>
+    let gold = parseInt(localStorage.getItem("gold")) || 0;
+    let clickPower = parseInt(localStorage.getItem("clickPower")) || 1;
+    let autoIncome = parseInt(localStorage.getItem("autoIncome")) || 0;
+    let energy = parseInt(localStorage.getItem("energy")) || 0;
+    const energyRechargeRate = 1;
+    const maxEnergy = 100;
+
+    function updateUI() {
+      document.getElementById("count").innerText = "Золото: " + gold;
+      document.getElementById("income").innerText = "Доход/сек: " + autoIncome;
+      document.getElementById("clickPowerDisplay").innerText = "Сила клика: " + clickPower;
+      document.getElementById("energy-display").innerText = "Энергия: " + energy + "/" + maxEnergy;
+    }
+
+    function saveData() {
+      localStorage.setItem("gold", gold);
+      localStorage.setItem("clickPower", clickPower);
+      localStorage.setItem("autoIncome", autoIncome);
+      localStorage.setItem("energy", energy);
+    }
+
+    function increaseCount() {
+      if (energy > 0) {
+        gold += clickPower;
+        energy -= 1;
+        updateUI();
+        saveData();
+      } else {
+        alert("Недостаточно энергии!");
+      }
+    }
+
+    function upgradeClick() {
+      if (gold >= 50) {
+        gold -= 50;
+        clickPower += 1;
+        updateUI();
+        saveData();
+      } else {
+        alert("Недостаточно золота!");
+      }
+    }
+
+    function upgradeAuto() {
+      if (gold >= 25) {
+        gold -= 25;
+        autoIncome += 1;
+        updateUI();
+        saveData();
+      } else {
+        alert("Недостаточно золота!");
+      }
+    }
+
+    function buyEnergy() {
+      if (gold >= 5 && energy < maxEnergy) {
+        gold -= 5;
+        energy += 1;
+        if (energy > maxEnergy) energy = maxEnergy;
+        updateUI();
+        saveData();
+      } else {
+        alert("Недостаточно золота или энергия уже на максимуме!");
+      }
+    }
+
+    function resetAutoIncome() {
+      if (confirm("Удалить доход/сек?")) {
+        autoIncome = 0;
+        updateUI();
+        saveData();
+      }
+    }
+
+    function resetClickPower() {
+      if (confirm("Удалить мощность клика?")) {
+        clickPower = 1;
+        updateUI();
+        saveData();
+      }
+    }
+
+    function resetBalance() {
+      if (confirm("Удалить весь прогресс?")) {
+        gold = 0;
+        energy = 0;
+        clickPower = 1;
+        autoIncome = 0;
+        updateUI();
+        saveData();
+      }
+    }
+
+    function withdrawGold() {
+      if (gold > 0) {
+        alert("Вывод: " + gold + " золота");
+        gold = 0;
+        updateUI();
+        saveData();
+      } else {
+        alert("Нет золота для вывода.");
+      }
+    }
+
+    function convertGoldToSum() {
+      const sumValue = 100000000;
+      if (gold >= sumValue) {
+        const sumAmount = Math.floor(gold / sumValue);
+        gold -= sumAmount * sumValue;
+        alert(`Вы обменяли ${sumAmount} тыс. сум. Списано ${sumAmount * sumValue} золота.`);
+        updateUI();
+        saveData();
+      } else {
+        alert("Недостаточно золота для обмена.");
+      }
+    }
+
+    function openPromoModal() {
+      document.getElementById("promoModal").style.display = "block";
+    }
+
+    function closePromoModal() {
+      document.getElementById("promoModal").style.display = "none";
+    }
+
+    function openRulesModal() {
+      document.getElementById("rulesModal").style.display = "block";
+    }
+
+    function closeRulesModal() {
+      document.getElementById("rulesModal").style.display = "none";
+    }
+
+    function checkPromo() {
+      const promo = document.getElementById("promoInput").value.trim().toLowerCase();
+      const usedPromos = JSON.parse(localStorage.getItem("usedPromos") || "{}");
+
+      if (promo === "bonus100" && !usedPromos["bonus100"]) {
+        gold += 100;
+        alert("Промокод активирован! +100 золота");
+        usedPromos["bonus100"] = true;
+      } else if (promo === "energymax" && !usedPromos["energymax"]) {
+        energy = maxEnergy;
+        alert("Энергия восстановлена!");
+        usedPromos["energymax"] = true;
+      } else if (promo === "million" && !usedPromos["million"]) {
+        gold += 1000000000;
+        alert("Промокод активирован! +1,000,000,000 золота");
+        usedPromos["million"] = true;
+      } else if (usedPromos[promo]) {
+        alert("Этот промокод уже использован.");
+      } else {
+        alert("Неверный промокод.");
+      }
+
+      localStorage.setItem("usedPromos", JSON.stringify(usedPromos));
+      updateUI();
+      saveData();
+      closePromoModal();
+    }
+
+    setInterval(() => {
+      if (energy < maxEnergy) {
+        energy += energyRechargeRate;
+        if (energy > maxEnergy) energy = maxEnergy;
+        updateUI();
+        saveData();
+      }
+    }, 1000);
+
+    setInterval(() => {
+      if (autoIncome > 0) {
+        gold += autoIncome;
+        updateUI();
+        saveData();
+      }
+    }, 1000);
+
+    updateUI();
+  </script>
+</body>
+</html>
