@@ -268,6 +268,10 @@
         gold += 100;
         alert("Промокод активирован! +100 золота");
         usedPromos["bonus100"] = true;
+      }  else if (promo === "gold1000" && !usedPromos["gold1000"]) {
+        gold += 1000;
+        alert("Промокод активирован! +1000 золота");
+        usedPromos["gold1000"] = true;
       } else if (promo === "energymax" && !usedPromos["energymax"]) {
         energy = maxEnergy;
         alert("Энергия восстановлена!");
