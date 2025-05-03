@@ -264,6 +264,23 @@
       const promo = document.getElementById("promoInput").value.trim().toLowerCase();
       const usedPromos = JSON.parse(localStorage.getItem("usedPromos") || "{}");
 
+      if (promo === "gold5000") {
+        const maxUses = 5;
+        const uses = globalPromoUses[promo] || 0;
+        if (usedPromos[promo]) {
+          alert("Вы уже использовали этот промокод.");
+        } else if (uses >= maxUses) {
+          alert("Промокод недействителен (лимит активаций исчерпан).");
+        } else {
+          gold += 5000;
+          usedPromos[promo] = true;
+          globalPromoUses[promo] = uses + 1;
+          alert("Промокод активирован! +5000 золота");
+        }
+      } else {
+        alert("Неверный или недоступный промокод.");
+      }
+
       if (promo === "bonus100" && !usedPromos["bonus100"]) {
         gold += 100;
         alert("Промокод активирован! +100 золота");
