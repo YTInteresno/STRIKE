@@ -4,84 +4,161 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STRIKE</title>
-  <style>
+      <style>
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(img/79dc20e5-0b25-46ac-9414-8ae4c4bcf871.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+  }
+
+  h1 {
+    color: aqua;
+    font-size: 3vw;
+    margin-top: 20px;
+  }
+
+  #count {
+    background-image: url(img/photo_2025-05-03_20-17-19.jpg);
+    background-position: center;
+    background-size: cover;
+    font-size: 5vw;
+    padding: 20vw;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    color: white;
+    margin: 20px 0;
+    max-width: 90vw;
+  }
+
+  #income, #clickPowerDisplay, #energy-display {
+    font-size: 2.5vw;
+    margin: 10px 0;
+  }
+
+  .shop {
+    margin: 20px;
+  }
+
+  .shop-section {
+    margin-bottom: 20px;
+  }
+
+  .shop-section h2 {
+    background-color: rgba(0,0,0,0.7);
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 4vw;
+  }
+
+  .shop-content {
+    display: none;
+    margin-top: 10px;
+  }
+
+  .upgrade-btn, .energy-btn, .promo-btn, .rules-btn {
+    background-image: url(img/photo_2025-05-03_20-17-19.jpg);
+    background-position: center;
+    padding: 10px 20px;
+    font-size: 3.5vw;
+    margin: 5px;
+    cursor: pointer;
+    max-width: 90%;
+  }
+
+  #promoModal, #rulesModal {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    width: 90vw;
+    max-width: 600px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+  #promoModal input, #rulesModal p {
+    font-size: 3.5vw;
+    padding: 5px;
+    margin: 10px 0;
+    width: 90%;
+  }
+
+  #promoModal button, #rulesModal button {
+    font-size: 3.5vw;
+    padding: 10px 20px;
+    margin: 5px;
+  }
+
+  #rulesModal {
+    max-height: 80vh;
+  }
+
+  #rulesModal p {
+    margin-bottom: 10px;
+    font-size: 3.5vw;
+  }
+
+  ul {
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  ul li a {
+    color: aqua;
+    font-size: 3.5vw;
+  }
+
+  @media (min-width: 768px) {
     h1 {
-      color: aqua;
+      font-size: 32px;
     }
 
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin-top: 50px;
-      background-image: url(img/79dc20e5-0b25-46ac-9414-8ae4c4bcf871.png);
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: rgb(255, 255, 255);
+    #income, #clickPowerDisplay, #energy-display {
+      font-size: 22px;
     }
 
-    button {
-      background-image: url(img/photo_2025-05-03_20-17-19.jpg);
-      background-position: center;
-      font-size: 24px;
-      padding: 150px 100px;
-      border-radius: 200px;
-      border: none;
-      cursor: pointer;
-      color: white;
-    }
-
-    #count, #income, #energy-display, #clickPowerDisplay {
+    #count {
       font-size: 28px;
-      margin-top: 20px;
+      padding: 150px 100px;
     }
 
-    .shop {
-      margin-top: 30px;
+    .shop-section h2 {
+      font-size: 24px;
     }
 
-    .upgrade-btn, .energy-btn, .promo-btn, .rules-btn, .withdraw-btn {
-      padding: 10px 20px;
+    .upgrade-btn, .energy-btn, .promo-btn, .rules-btn {
       font-size: 18px;
-      margin: 10px;
-      cursor: pointer;
-    }
-
-    #promoModal, #rulesModal {
-      display: none;
-      position: fixed;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.9);
-      padding: 20px;
-      border-radius: 10px;
-      color: white;
-      width: 80%;
-      max-width: 600px;
-      overflow-y: auto;
     }
 
     #promoModal input, #rulesModal p {
       font-size: 16px;
-      padding: 5px;
-      margin-right: 10px;
     }
 
     #promoModal button, #rulesModal button {
       font-size: 16px;
-      padding: 5px 10px;
     }
 
-    #rulesModal {
-      max-height: 400px;
+    ul li a {
+      font-size: 16px;
     }
+  }
+</style>
 
-    #rulesModal p {
-      margin-bottom: 15px;
-    }
-  </style>
+
 </head>
 <body>
   <h1>STRIKE</h1>
@@ -92,15 +169,26 @@
   <button id="count" onclick="increaseCount()">Золото: 0</button>
 
   <div class="shop">
-    <button class="upgrade-btn" onclick="upgradeClick()">Улучшить клик (+1) — 50 золота</button>
-    <button class="upgrade-btn" onclick="upgradeAuto()">Увеличить доход/сек (+1) — 25 золота</button>
-    <button class="energy-btn" onclick="buyEnergy()">Купить Энергию — 5 золота</button>
-   <button class="promo-btn" onclick="openPromoModal()">Ввести промокод</button> 
-   <button class="upgrade-btn" onclick="resetAutoIncome()">Удалить доход/сек</button>
-    <button class="upgrade-btn" onclick="resetClickPower()">Удалить мощность клика</button>
-    <button class="upgrade-btn" onclick="resetBalance()">Удалить баланс</button>
-    <button class="upgrade-btn" onclick="convertGoldToSum()">Обменять золото на сум</button>
-    <button class="rules-btn" onclick="openRulesModal()">Правила игры</button>
+    <div class="shop-section">
+      <h2 onclick="toggleSection(this)">Улучшения</h2>
+      <div class="shop-content">
+        <button class="upgrade-btn" id="click-upgrade-btn" onclick="upgradeClick()">Улучшить клик (+1) — 50 золота</button>
+        <button class="upgrade-btn" id="auto-upgrade-btn" onclick="upgradeAuto()">Увеличить доход/сек (+1) — 25 золота</button>
+        <button class="energy-btn" onclick="buyEnergy()">Купить Энергию — 5 золота</button>
+        <button class="upgrade-btn" onclick="resetClickPower()">Удалить мощность клика</button>
+        <button class="upgrade-btn" onclick="resetAutoIncome()">Удалить доход/сек</button>
+      </div>
+    </div>
+
+    <div class="shop-section">
+      <h2 onclick="toggleSection(this)">Функции</h2>
+      <div class="shop-content">
+        <button class="promo-btn" onclick="openPromoModal()">Ввести промокод</button>
+        <button class="upgrade-btn" onclick="convertGoldToSum()">Обменять золото на сум</button>
+        <button class="upgrade-btn" onclick="resetBalance()">Удалить баланс</button>
+        <button class="rules-btn" onclick="openRulesModal()">Правила игры</button>
+      </div>
+    </div>
   </div>
 
   <div id="promoModal">
@@ -112,13 +200,11 @@
 
   <div id="rulesModal">
     <h2>Правила игры</h2>
-    <p>1. Для начала игры у вас есть базовые ресурсы: золото, энергия и сила клика.</p>
-    <p>2. Каждый клик приносит вам золото в зависимости от силы клика.</p>
-    <p>3. Энергия восстанавливается постепенно, и каждый клик требует одну единицу энергии.</p>
-    <p>4. Вы можете улучшать силу клика и доход в секунду, используя золото.</p>
-    <p>5. Применяйте промокоды для бонусов (золото, энергия и т.д.).</p>
-    <p>6. Запомните вывод средсть можно только через телеграм и с видео </p>
-    <p>7. Ссылки:</p>
+    <p>1. Клик приносит золото. Энергия тратится на каждый клик.</p>
+    <p>2. Улучшайте клики и доход.</p>
+    <p>3. Промокоды дают бонусы.</p>
+    <p>4. Обмен золота и вывод — через Telegram.</p>
+    <p>Ссылки:</p>
     <ul>
       <li><a href="https://t.me/STRIKE_2604" target="_blank">Telegram канал</a></li>
       <li><a href="https://example.com" target="_blank">Сайт</a></li>
@@ -134,11 +220,23 @@
     const energyRechargeRate = 1;
     const maxEnergy = 100;
 
+    // Начальная стоимость улучшений
+    const initialClickUpgradeCost = 50;
+    const initialAutoUpgradeCost = 25;
+
+    // Стоимость улучшений (будет увеличиваться на 50% с каждым улучшением)
+    let clickUpgradeCost = parseInt(localStorage.getItem("clickUpgradeCost")) || initialClickUpgradeCost;
+    let autoUpgradeCost = parseInt(localStorage.getItem("autoUpgradeCost")) || initialAutoUpgradeCost;
+
     function updateUI() {
       document.getElementById("count").innerText = "Золото: " + gold;
       document.getElementById("income").innerText = "Доход/сек: " + autoIncome;
       document.getElementById("clickPowerDisplay").innerText = "Сила клика: " + clickPower;
       document.getElementById("energy-display").innerText = "Энергия: " + energy + "/" + maxEnergy;
+
+      // Обновляем стоимость улучшений
+      document.getElementById("click-upgrade-btn").innerText = `Улучшить клик (+1) — ${clickUpgradeCost} золота`;
+      document.getElementById("auto-upgrade-btn").innerText = `Увеличить доход/сек (+1) — ${autoUpgradeCost} золота`;
     }
 
     function saveData() {
@@ -146,6 +244,8 @@
       localStorage.setItem("clickPower", clickPower);
       localStorage.setItem("autoIncome", autoIncome);
       localStorage.setItem("energy", energy);
+      localStorage.setItem("clickUpgradeCost", clickUpgradeCost);
+      localStorage.setItem("autoUpgradeCost", autoUpgradeCost);
     }
 
     function increaseCount() {
@@ -160,9 +260,10 @@
     }
 
     function upgradeClick() {
-      if (gold >= 50) {
-        gold -= 50;
+      if (gold >= clickUpgradeCost) {
+        gold -= clickUpgradeCost;
         clickPower += 1;
+        clickUpgradeCost = Math.ceil(clickUpgradeCost * 1.5); // Увеличиваем стоимость на 50%
         updateUI();
         saveData();
       } else {
@@ -171,9 +272,10 @@
     }
 
     function upgradeAuto() {
-      if (gold >= 25) {
-        gold -= 25;
+      if (gold >= autoUpgradeCost) {
+        gold -= autoUpgradeCost;
         autoIncome += 1;
+        autoUpgradeCost = Math.ceil(autoUpgradeCost * 1.5); // Увеличиваем стоимость на 50%
         updateUI();
         saveData();
       } else {
@@ -215,19 +317,11 @@
         energy = 0;
         clickPower = 1;
         autoIncome = 0;
+        // Сбросить только прогресс, но вернуть начальную стоимость улучшений
+        clickUpgradeCost = initialClickUpgradeCost;
+        autoUpgradeCost = initialAutoUpgradeCost;
         updateUI();
         saveData();
-      }
-    }
-
-    function withdrawGold() {
-      if (gold > 0) {
-        alert("Вывод: " + gold + " золота");
-        gold = 0;
-        updateUI();
-        saveData();
-      } else {
-        alert("Нет золота для вывода.");
       }
     }
 
@@ -268,7 +362,7 @@
         gold += 100;
         alert("Промокод активирован! +100 золота");
         usedPromos["bonus100"] = true;
-      }  else if (promo === "gold1000" && !usedPromos["gold1000"]) {
+      } else if (promo === "gold1000" && !usedPromos["gold1000"]) {
         gold += 1000;
         alert("Промокод активирован! +1000 золота");
         usedPromos["gold1000"] = true;
@@ -292,6 +386,12 @@
       closePromoModal();
     }
 
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    }
+
+    // Энергия восстанавливается каждую секунду
     setInterval(() => {
       if (energy < maxEnergy) {
         energy += energyRechargeRate;
@@ -301,6 +401,7 @@
       }
     }, 1000);
 
+    // Авто-дохо́д каждую секунду
     setInterval(() => {
       if (autoIncome > 0) {
         gold += autoIncome;
