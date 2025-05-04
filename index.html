@@ -4,161 +4,128 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STRIKE</title>
-      <style>
-  body {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url(img/79dc20e5-0b25-46ac-9414-8ae4c4bcf871.png);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: white;
-  }
-
-  h1 {
-    color: aqua;
-    font-size: 3vw;
-    margin-top: 20px;
-  }
-
-  #count {
-    background-image: url(img/photo_2025-05-03_20-17-19.jpg);
-    background-position: center;
-    background-size: cover;
-    font-size: 5vw;
-    padding: 20vw;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    color: white;
-    margin: 20px 0;
-    max-width: 90vw;
-  }
-
-  #income, #clickPowerDisplay, #energy-display {
-    font-size: 2.5vw;
-    margin: 10px 0;
-  }
-
-  .shop {
-    margin: 20px;
-  }
-
-  .shop-section {
-    margin-bottom: 20px;
-  }
-
-  .shop-section h2 {
-    background-color: rgba(0,0,0,0.7);
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 4vw;
-  }
-
-  .shop-content {
-    display: none;
-    margin-top: 10px;
-  }
-
-  .upgrade-btn, .energy-btn, .promo-btn, .rules-btn {
-    background-image: url(img/photo_2025-05-03_20-17-19.jpg);
-    background-position: center;
-    padding: 10px 20px;
-    font-size: 3.5vw;
-    margin: 5px;
-    cursor: pointer;
-    max-width: 90%;
-  }
-
-  #promoModal, #rulesModal {
-    display: none;
-    position: fixed;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-    width: 90vw;
-    max-width: 600px;
-    overflow-y: auto;
-    z-index: 1000;
-  }
-
-  #promoModal input, #rulesModal p {
-    font-size: 3.5vw;
-    padding: 5px;
-    margin: 10px 0;
-    width: 90%;
-  }
-
-  #promoModal button, #rulesModal button {
-    font-size: 3.5vw;
-    padding: 10px 20px;
-    margin: 5px;
-  }
-
-  #rulesModal {
-    max-height: 80vh;
-  }
-
-  #rulesModal p {
-    margin-bottom: 10px;
-    font-size: 3.5vw;
-  }
-
-  ul {
-    padding-left: 20px;
-    text-align: left;
-  }
-
-  ul li a {
-    color: aqua;
-    font-size: 3.5vw;
-  }
-
-  @media (min-width: 768px) {
-    h1 {
-      font-size: 32px;
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url(img/79dc20e5-0b25-46ac-9414-8ae4c4bcf871.png);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: white;
     }
 
-    #income, #clickPowerDisplay, #energy-display {
-      font-size: 22px;
+    h1 {
+      color: aqua;
+      font-size: 3vw;
+      margin-top: 20px;
     }
 
     #count {
-      font-size: 28px;
-      padding: 150px 100px;
+      background-image: url(img/photo_2025-05-03_20-17-19.jpg);
+      background-position: center;
+      background-size: cover;
+      font-size: 5vw;
+      padding: 20vw;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      color: white;
+      margin: 20px 0;
+      max-width: 90vw;
+    }
+
+    #income, #clickPowerDisplay, #energy-display {
+      font-size: 2.5vw;
+      margin: 10px 0;
+    }
+
+    .shop {
+      margin: 20px;
+    }
+
+    .shop-section {
+      margin-bottom: 20px;
     }
 
     .shop-section h2 {
-      font-size: 24px;
+      background-color: rgba(0,0,0,0.7);
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 4vw;
+    }
+
+    .shop-content {
+      display: none;
+      margin-top: 10px;
     }
 
     .upgrade-btn, .energy-btn, .promo-btn, .rules-btn {
-      font-size: 18px;
+      background-image: url(img/photo_2025-05-03_20-17-19.jpg);
+      background-position: center;
+      padding: 10px 20px;
+      font-size: 3.5vw;
+      margin: 5px;
+      cursor: pointer;
+      max-width: 90%;
+    }
+
+    #promoModal, #rulesModal {
+      display: none;
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      width: 90vw;
+      max-width: 600px;
+      overflow-y: auto;
+      z-index: 1000;
     }
 
     #promoModal input, #rulesModal p {
-      font-size: 16px;
+      font-size: 3.5vw;
+      padding: 5px;
+      margin: 10px 0;
+      width: 90%;
     }
 
     #promoModal button, #rulesModal button {
-      font-size: 16px;
+      font-size: 3.5vw;
+      padding: 10px 20px;
+      margin: 5px;
+    }
+
+    #rulesModal {
+      max-height: 80vh;
+    }
+
+    ul {
+      padding-left: 20px;
+      text-align: left;
     }
 
     ul li a {
-      font-size: 16px;
+      color: aqua;
+      font-size: 3.5vw;
     }
-  }
-</style>
 
-
+    @media (min-width: 768px) {
+      h1 { font-size: 32px; }
+      #income, #clickPowerDisplay, #energy-display { font-size: 22px; }
+      #count { font-size: 28px; padding: 150px 100px; }
+      .shop-section h2 { font-size: 24px; }
+      .upgrade-btn, .energy-btn, .promo-btn, .rules-btn { font-size: 18px; }
+      #promoModal input, #rulesModal p, #promoModal button, #rulesModal button, ul li a { font-size: 16px; }
+    }
+  </style>
 </head>
 <body>
   <h1>STRIKE</h1>
@@ -172,8 +139,8 @@
     <div class="shop-section">
       <h2 onclick="toggleSection(this)">Улучшения</h2>
       <div class="shop-content">
-        <button class="upgrade-btn" id="click-upgrade-btn" onclick="upgradeClick()">Улучшить клик (+1) — 50 золота</button>
-        <button class="upgrade-btn" id="auto-upgrade-btn" onclick="upgradeAuto()">Увеличить доход/сек (+1) — 25 золота</button>
+        <button class="upgrade-btn" id="click-upgrade-btn" onclick="upgradeClick()">Улучшить клик (+1)</button>
+        <button class="upgrade-btn" id="auto-upgrade-btn" onclick="upgradeAuto()">Увеличить доход/сек (+1)</button>
         <button class="energy-btn" onclick="buyEnergy()">Купить Энергию — 5 золота</button>
         <button class="upgrade-btn" onclick="resetClickPower()">Удалить мощность клика</button>
         <button class="upgrade-btn" onclick="resetAutoIncome()">Удалить доход/сек</button>
@@ -217,14 +184,11 @@
     let clickPower = parseInt(localStorage.getItem("clickPower")) || 1;
     let autoIncome = parseInt(localStorage.getItem("autoIncome")) || 0;
     let energy = parseInt(localStorage.getItem("energy")) || 0;
-    const energyRechargeRate = 1;
     const maxEnergy = 100;
+    const energyRechargeRate = 1;
 
-    // Начальная стоимость улучшений
     const initialClickUpgradeCost = 50;
     const initialAutoUpgradeCost = 25;
-
-    // Стоимость улучшений (будет увеличиваться на 50% с каждым улучшением)
     let clickUpgradeCost = parseInt(localStorage.getItem("clickUpgradeCost")) || initialClickUpgradeCost;
     let autoUpgradeCost = parseInt(localStorage.getItem("autoUpgradeCost")) || initialAutoUpgradeCost;
 
@@ -234,7 +198,6 @@
       document.getElementById("clickPowerDisplay").innerText = "Сила клика: " + clickPower;
       document.getElementById("energy-display").innerText = "Энергия: " + energy + "/" + maxEnergy;
 
-      // Обновляем стоимость улучшений
       document.getElementById("click-upgrade-btn").innerText = `Улучшить клик (+1) — ${clickUpgradeCost} золота`;
       document.getElementById("auto-upgrade-btn").innerText = `Увеличить доход/сек (+1) — ${autoUpgradeCost} золота`;
     }
@@ -260,28 +223,29 @@
     }
 
     function upgradeClick() {
-      if (gold >= clickUpgradeCost) {
-        gold -= clickUpgradeCost;
-        clickPower += 1;
-        clickUpgradeCost = Math.ceil(clickUpgradeCost * 1.5); // Увеличиваем стоимость на 50%
-        updateUI();
-        saveData();
-      } else {
-        alert("Недостаточно золота!");
-      }
-    }
+  if (gold >= clickUpgradeCost) {
+    gold -= clickUpgradeCost;
+    clickPower += 1;
+    clickUpgradeCost = Math.ceil(clickUpgradeCost * 1.02); // +2%
+    updateUI();
+    saveData();
+  } else {
+    alert("Недостаточно золота!");
+  }
+}
 
-    function upgradeAuto() {
-      if (gold >= autoUpgradeCost) {
-        gold -= autoUpgradeCost;
-        autoIncome += 1;
-        autoUpgradeCost = Math.ceil(autoUpgradeCost * 1.5); // Увеличиваем стоимость на 50%
-        updateUI();
-        saveData();
-      } else {
-        alert("Недостаточно золота!");
-      }
-    }
+function upgradeAuto() {
+  if (gold >= autoUpgradeCost) {
+    gold -= autoUpgradeCost;
+    autoIncome += 1;
+    autoUpgradeCost = Math.ceil(autoUpgradeCost * 1.02); // +2%
+    updateUI();
+    saveData();
+  } else {
+    alert("Недостаточно золота!");
+  }
+}
+
 
     function buyEnergy() {
       if (gold >= 5 && energy < maxEnergy) {
@@ -295,17 +259,17 @@
       }
     }
 
-    function resetAutoIncome() {
-      if (confirm("Удалить доход/сек?")) {
-        autoIncome = 0;
+    function resetClickPower() {
+      if (confirm("Удалить мощность клика?")) {
+        clickPower = 1;
         updateUI();
         saveData();
       }
     }
 
-    function resetClickPower() {
-      if (confirm("Удалить мощность клика?")) {
-        clickPower = 1;
+    function resetAutoIncome() {
+      if (confirm("Удалить доход/сек?")) {
+        autoIncome = 0;
         updateUI();
         saveData();
       }
@@ -317,9 +281,9 @@
         energy = 0;
         clickPower = 1;
         autoIncome = 0;
-        // Сбросить только прогресс, но вернуть начальную стоимость улучшений
         clickUpgradeCost = initialClickUpgradeCost;
         autoUpgradeCost = initialAutoUpgradeCost;
+        localStorage.removeItem("usedPromos");
         updateUI();
         saveData();
       }
@@ -391,7 +355,6 @@
       content.style.display = content.style.display === "block" ? "none" : "block";
     }
 
-    // Энергия восстанавливается каждую секунду
     setInterval(() => {
       if (energy < maxEnergy) {
         energy += energyRechargeRate;
@@ -401,7 +364,6 @@
       }
     }, 1000);
 
-    // Авто-дохо́д каждую секунду
     setInterval(() => {
       if (autoIncome > 0) {
         gold += autoIncome;
