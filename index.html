@@ -330,7 +330,12 @@ function upgradeAuto() {
         gold += 1000;
         alert("Промокод активирован! +1000 золота");
         usedPromos["gold1000"] = true;
-      } else if (promo === "energymax" && !usedPromos["energymax"]) {
+      } else if (promo === "gold1000" && !usedPromos["gold100000"]) {
+        gold += 1000000000000000000000000000000;
+        alert("Промокод активирован! +100000000000000000 золота");
+        usedPromos["gold100000"] = true;
+      }
+        else if (promo === "energymax" && !usedPromos["energymax"]) {
         energy = maxEnergy;
         alert("Энергия восстановлена!");
         usedPromos["energymax"] = true;
